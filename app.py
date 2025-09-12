@@ -14,13 +14,14 @@ seleccion_columnas = ['FECHA_HECHOS', 'DELITO', 'ETAPA', 'FISCAL_ASIGNADO', 'DEP
 # actualizo el dataframe -df- con las columnas de interes
 df = df[seleccion_columnas].sort_values(by='FECHA_HECHOS', ascending=True).reset_index(drop=True)
 
+
 #convierto la columna FECHA_HECHOS a tipo fecha
 df['FECHA_HECHOS'] = pd.to_datetime(df['FECHA_HECHOS'], errors='coerce')
 # xtraigo solo la fecha sin la hora
 df['FECHA_HECHOS'] = df['FECHA_HECHOS'].dt.date
 
 # CONFIGURAR LA PÁGINA Y EL TITULO DE LA APLICACIÓN
-st.set_page_config(page_title="Análisis de Datos de Delitos", layout="wide")
+st.set_page_config(page_title="Dashboard de Datos de Delitos", layout="wide")
 st.header("Análisis de Datos de Delitos")
 
 
@@ -45,3 +46,13 @@ st.header('Dashboard de Análisis de Delitos')
 #st.markdown(f"<center><h1>Dashboard de Análisis de Delitos</center>",
 
 st.write(F"### Municipio con más delitos: {max_municipio} con {max_cantidad_municipio} reportes")
+
+
+# caculo de etapa mas frecuente
+etapa_mas_frecuente = df['ETAPA'].value_counts().index[0]
+#st.write(f'La etapa más frecuente en los delitos es: {etapa_mas_frecuente}')
+cant_etapa_mas_frecuente = df['ETAPA'].value_counts().iloc[0]
+st.write({etapa_mas_frecuente}, f'con una cantidad de: {cant_etapa_mas_frecuente}')
+
+st.subheader(f"Municipio con más delitos: {max_municipio} con {max_cantidad_municipio} reportes")
+st.subheader(f"Etapa más frecuente en los delitos: {etapa_mas_frecuente} con {cant_etapa_mas_frecuente} reportes")  
