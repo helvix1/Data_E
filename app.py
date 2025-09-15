@@ -8,21 +8,71 @@ df = pd.read_csv(url, sep=";", encoding="utf-8")
 
 # print(df.info)
 
+#construir página
+st.set_page_config(page_title='Dashboard de Análisis de Delitos', layout='wide')
+st.markdown(
+    """
+    <style>
+    .block-container {
+        padding: 3rem 2rem 2rem 2rem;
+        max-width: 1200px;
+}
+    </style>
+    """,
+    # unsafe permite usar html
+    unsafe_allow_html=True
+)
+st.image('img/Dashboard_fiscalia.png', use_container_width=True)
+
+# EL TITULO DE LA APLICACIÓN
+st.set_page_config(page_title="Dashboard de Datos de Delitos", layout="wide")
+st.markdown("# <font color='#8C362E'> Análisis de Datos de Delitos </font>", unsafe_allow_html=True)
+
 
 #crear lista de columnas de interes
 seleccion_columnas = ['FECHA_HECHOS', 'DELITO', 'ETAPA', 'FISCAL_ASIGNADO', 'DEPARTAMENTO', 'MUNICIPIO_HECHOS']
 # actualizo el dataframe -df- con las columnas de interes
 df = df[seleccion_columnas].sort_values(by='FECHA_HECHOS', ascending=True).reset_index(drop=True)
 
+# calculo de municipios con más delitos
+max_municipio = df['MUNICIPIO_HECHOS'].value_counts().index[0].upper()
+max_cantidad_municipio = df['MUNICIPIO_HECHOS'].value_counts().iloc[0]
+cant_etapa_mas_frecuente = df['ETAPA'].value_counts().iloc[0]
+
+st.subheader(f"Municipio con más delitos: {max_municipio} con {max_cantidad_municipio} reportes")
+etapa_mas_frecuente = df['ETAPA'].value_counts().index[0]
+st.subheader(f"Etapa más frecuente en los delitos: {etapa_mas_frecuente} tiene {cant_etapa_mas_frecuente} registros")
+
+col1, col2 = st.columns(2)
+
+with col1:
+    st.markdown(f"""#<h3 style=
+            'color:#F2A88D;background-color:FFF6F5;
+            border: 2px solid #F2A88D;
+            border-radius: 10px; padding:10px;
+            text-align:center'>
+            Municipio con más delitos: {max_municipio}</h3><br>""",
+            unsafe_allow_html=True
+            )
+    
+with col2:
+    st.markdown(f"""#<h3 style=
+            'color:#F2A88D;background-color:FFF6F5;
+            border: 2px solid #F2A88D;
+            border-radius: 10px; padding:10px;
+            text-align:center'>
+            Etapa más frecuente: {etapa_mas_frecuente}</h3><br>""",
+            unsafe_allow_html=True
+            )
+
+
+
+
 
 #convierto la columna FECHA_HECHOS a tipo fecha
 df['FECHA_HECHOS'] = pd.to_datetime(df['FECHA_HECHOS'], errors='coerce')
 # xtraigo solo la fecha sin la hora
 df['FECHA_HECHOS'] = df['FECHA_HECHOS'].dt.date
-
-# CONFIGURAR LA PÁGINA Y EL TITULO DE LA APLICACIÓN
-st.set_page_config(page_title="Dashboard de Datos de Delitos", layout="wide")
-st.header("Análisis de Datos de Delitos")
 
 
 #grafico de barras  para la columna DELITO
@@ -60,3 +110,14 @@ st.subheader(f"Etapa más frecuente en los delitos: {etapa_mas_frecuente} con {c
 st.subheader('Comportamiento de los Delitos')
 delitos = df['DELITO'].value_counts()
 st.bar_chart(delitos)
+
+print(df.info)
+st.write("Análisis realizado por Helvix")
+st.write("Datos ficticios para propósitos educativos")
+#st.markdown(f"<center><h1>Dashboard de Análisis de Delitos</center>", unsafe_allow_html=True)
+
+
+
+
+
+#st.markdown("<h1>TITULO</h1>", unsafe_allow_html=True)
