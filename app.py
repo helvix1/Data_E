@@ -56,3 +56,7 @@ st.write({etapa_mas_frecuente}, f'con una cantidad de: {cant_etapa_mas_frecuente
 
 st.subheader(f"Municipio con más delitos: {max_municipio} con {max_cantidad_municipio} reportes")
 st.subheader(f"Etapa más frecuente en los delitos: {etapa_mas_frecuente} con {cant_etapa_mas_frecuente} reportes")  
+
+st.subheader('Comportamiento de los Delitos')
+delitos = df['DELITO'].value_counts()
+st.bar_chart(delitos)
