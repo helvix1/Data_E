@@ -15,13 +15,16 @@ color = os.getenv("COLOR_PRINCIPAL", "#8C362E")
 # Configuración inicial de la página
 st.set_page_config(page_title=titulo, layout='wide')
 
-# Encabezado personalizado
+# Estilos adaptables para móviles
 st.markdown(f"""
-    <h1 style='color:{color}; text-align:center;'>{titulo}</h1>
     <style>
         .block-container {{
-            padding: 3rem 2rem 2rem 2rem;
-            max-width: 1200px;
+            padding: 1rem;
+        }}
+        h1 {{
+            color: {color};
+            text-align: center;
+            font-size: 2rem;
         }}
         h3 {{
             color: {color};
@@ -30,8 +33,18 @@ st.markdown(f"""
             border-radius: 10px;
             padding: 10px;
             text-align: center;
+            font-size: 1.1rem;
+        }}
+        @media (max-width: 768px) {{
+            h1 {{
+                font-size: 1.5rem;
+            }}
+            h3 {{
+                font-size: 1rem;
+            }}
         }}
     </style>
+    <h1>{titulo}</h1>
 """, unsafe_allow_html=True)
 
 # Imagen del encabezado
@@ -78,11 +91,3 @@ st.dataframe(df)
 st.markdown("---")
 st.write("📊 Análisis realizado por Elvis Moreno Osorio")
 st.write("⚠️ Datos ficticios para propósitos educativos")
-
-
-
-
-
-
-
-#st.markdown("<h1>TITULO</h1>", unsafe_allow_html=True)
