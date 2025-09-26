@@ -76,7 +76,7 @@ st.dataframe(df)
 
 # Pie de página
 st.markdown("---")
-st.write("📊 Análisis realizado por Helvix")
+st.write("📊 Análisis realizado por Elvis Moreno")
 st.write("⚠️ Datos ficticios para propósitos educativos")
 
 
