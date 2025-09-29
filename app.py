@@ -3,6 +3,10 @@ import streamlit as st
 from datetime import datetime
 from dotenv import load_dotenv
 import os
+import google.generativeai as genai
+
+print("Librería GenAI cargada correctamente")
+
 
 # Cargar variables de entorno desde .env
 load_dotenv()
